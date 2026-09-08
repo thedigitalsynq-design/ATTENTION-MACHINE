@@ -24,6 +24,7 @@ export class Interrupt {
   private render(): void {
     this.container.innerHTML = `
       <div class="interrupt-inner" role="dialog" aria-live="polite" aria-label="Interrupt sequence">
+        <div class="interrupt-flash" aria-hidden="true"></div>
         <div class="interrupt-content">
           <div class="interrupt-lines"></div>
         </div>
@@ -61,6 +62,23 @@ export class Interrupt {
         justify-content: center;
         padding: var(--container-padding);
         overflow: hidden;
+      }
+      
+      .interrupt-inner.shaking {
+        animation: screenShake 0.4s ease-out;
+      }
+      
+      .interrupt-flash {
+        position: absolute;
+        inset: 0;
+        background: var(--color-accent);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 5;
+      }
+      
+      .interrupt-flash.firing {
+        animation: flashFrame 0.3s ease-out;
       }
       
       .interrupt-content {
@@ -205,7 +223,10 @@ export class Interrupt {
       return;
     }
     
-    // Play sequence
+    // Play sequence with screen shake and flash
+    const inner = this.container.querySelector('.interrupt-inner') as HTMLElement;
+    const flash = this.container.querySelector('.interrupt-flash') as HTMLElement;
+    
     for (const item of interruptSequence) {
       const line = document.createElement('div');
       line.className = `interrupt-line${item.text.includes('OUR JOB') || item.text.includes('IS HARD') ? ' accent' : ''}`;
@@ -214,6 +235,16 @@ export class Interrupt {
       
       await new Promise(r => setTimeout(r, 50));
       line.classList.add('revealed');
+      
+      // Screen shake on accent lines
+      if (item.text.includes('IS HARD') || item.text.includes('OUR JOB')) {
+        inner.classList.add('shaking');
+        flash.classList.add('firing');
+        setTimeout(() => {
+          inner.classList.remove('shaking');
+          flash.classList.remove('firing');
+        }, 400);
+      }
       
       await new Promise(r => setTimeout(r, item.delay || 1000));
     }

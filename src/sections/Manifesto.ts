@@ -72,6 +72,17 @@ export class Manifesto {
         transform: translateY(40px) scale(0.9);
         clip-path: inset(0 100% 0 0);
         white-space: nowrap;
+        position: relative;
+      }
+      
+      .manifesto-line .typewriter-cursor {
+        display: inline-block;
+        width: 3px;
+        height: 0.9em;
+        background: var(--color-accent);
+        margin-left: 4px;
+        vertical-align: text-bottom;
+        animation: cursorBlink 0.7s step-end infinite;
       }
       
       .manifesto-line.revealed {
@@ -209,7 +220,13 @@ export class Manifesto {
       const line = manifestoLines[this.currentLine];
       const el = document.createElement('div');
       el.className = `manifesto-line${this.currentLine % 2 === 1 ? ' accent' : ''}`;
+      
+      // Add typewriter cursor
+      const cursor = document.createElement('span');
+      cursor.className = 'typewriter-cursor';
       el.textContent = line;
+      el.appendChild(cursor);
+      
       linesContainer.appendChild(el);
       
       // Trigger animation

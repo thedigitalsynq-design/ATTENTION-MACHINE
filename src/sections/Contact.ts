@@ -21,6 +21,10 @@ export class Contact {
   private render(): void {
     this.container.innerHTML = `
       <div class="contact-inner">
+        <div class="terminal-header" aria-hidden="true">
+          <span class="terminal-prompt">root@attention-machine:~$</span>
+          <span class="terminal-cursor"></span>
+        </div>
         <header class="contact-header">
           <h2 class="contact-title" id="connect-heading">
             <span class="title-word">SHOULD</span>
@@ -144,9 +148,41 @@ export class Contact {
         padding: var(--space-12) var(--container-padding);
       }
       
+      /* Terminal/hacker aesthetic */
+      .terminal-header {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: var(--space-3) var(--space-4);
+        background: var(--color-gray-100);
+        border: 1px solid var(--color-gray-300);
+        border-radius: 4px 4px 0 0;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--color-accent);
+        margin-bottom: 0;
+      }
+      
+      .terminal-prompt {
+        opacity: 0.8;
+      }
+      
+      .terminal-cursor {
+        display: inline-block;
+        width: 8px;
+        height: 14px;
+        background: var(--color-accent);
+        animation: cursorBlink 1s step-end infinite;
+      }
+      
       .contact-header {
         text-align: center;
         margin-bottom: var(--space-12);
+        padding-top: var(--space-8);
+        border: 1px solid var(--color-gray-300);
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        background: linear-gradient(180deg, var(--color-gray-100) 0%, transparent 100%);
       }
       
       .contact-title {

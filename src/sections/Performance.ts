@@ -12,6 +12,7 @@ export class Performance {
     this.container = container;
     this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.render();
+    this.initDataStream();
     this.initCounters();
     this.setupScrollTrigger();
   }
@@ -19,6 +20,9 @@ export class Performance {
   private render(): void {
     this.container.innerHTML = `
       <div class="performance-inner">
+        <div class="data-stream" aria-hidden="true">
+          <div class="data-stream-track"></div>
+        </div>
         <header class="performance-header">
           <h2 class="performance-title" id="results-heading">
             <span class="title-word">ART IS</span>
@@ -207,6 +211,40 @@ export class Performance {
         color: var(--color-gray-500);
       }
       
+      /* Live data stream visualization */
+      .data-stream {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 120px;
+        height: 100%;
+        overflow: hidden;
+        opacity: 0.15;
+        pointer-events: none;
+        mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+        -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+      }
+      
+      .data-stream-track {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        animation: dataStreamScroll 20s linear infinite;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--color-accent);
+        white-space: nowrap;
+        line-height: 1.4;
+      }
+      
+      .data-stream-line {
+        opacity: 0.6;
+      }
+      
+      .data-stream-line:nth-child(odd) {
+        color: var(--color-gray-500);
+      }
+      
       @media (max-width: 768px) {
         .performance-title {
           font-size: var(--text-2xl);
@@ -218,6 +256,38 @@ export class Performance {
       }
     `;
     document.head.appendChild(style);
+  }
+  
+  private initDataStream(): void {
+    const track = this.container.querySelector('.data-stream-track') as HTMLElement;
+    if (!track) return;
+    
+    const dataPoints = [
+      'REACH: 2.1B+',
+      'RETENTION: 78%',
+      'ENGAGEMENT: 12.4%',
+      'CONVERSION: +340%',
+      'REVENUE: $127M+',
+      'UGS: 89K+',
+      'SHARES: 2.1M+',
+      'LIKES: 47M+',
+      'VIEWS: 400M+',
+      'CLICKS: 3.2M+',
+      'SAVES: 560K+',
+      'MENTIONS: 1.8M+',
+      'SENTIMENT: 98%',
+      'REACH: 2.1B+',
+      'RETENTION: 78%',
+      'ENGAGEMENT: 12.4%',
+      'CONVERSION: +340%',
+      'REVENUE: $127M+',
+      'UGS: 89K+',
+      'SHARES: 2.1M+',
+    ];
+    
+    // Duplicate for seamless loop
+    const allData = [...dataPoints, ...dataPoints];
+    track.innerHTML = allData.map(d => `<div class="data-stream-line">${d}</div>`).join('');
   }
   
   private initCounters(): void {

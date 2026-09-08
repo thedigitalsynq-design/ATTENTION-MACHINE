@@ -128,10 +128,38 @@ export class CampaignUniverse {
           radial-gradient(1px 1px at 20% 30%, var(--color-gray-400) 50%, transparent),
           radial-gradient(1px 1px at 80% 70%, var(--color-gray-400) 50%, transparent),
           radial-gradient(2px 2px at 40% 80%, var(--color-accent) 50%, transparent),
-          radial-gradient(1px 1px at 60% 20%, var(--color-gray-400) 50%, transparent);
-        background-size: 200px 200px;
+          radial-gradient(1px 1px at 60% 20%, var(--color-gray-400) 50%, transparent),
+          radial-gradient(1px 1px at 10% 90%, rgba(255,59,48,0.4) 50%, transparent),
+          radial-gradient(1px 1px at 90% 10%, rgba(255,59,48,0.3) 50%, transparent),
+          radial-gradient(2px 2px at 30% 60%, rgba(255,59,48,0.2) 50%, transparent),
+          radial-gradient(1px 1px at 70% 40%, var(--color-gray-400) 50%, transparent);
+        background-size: 200px 200px, 200px 200px, 200px 200px, 200px 200px, 300px 300px, 250px 250px, 180px 180px, 220px 220px;
         animation: starfield 60s linear infinite;
         opacity: 0.3;
+      }
+      
+      .universe-bg::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 40% 30% at 25% 35%, rgba(255,59,48,0.06) 0%, transparent 100%),
+          radial-gradient(ellipse 35% 25% at 75% 65%, rgba(88,86,214,0.04) 0%, transparent 100%),
+          radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,59,48,0.03) 0%, transparent 100%);
+        animation: nebulaDrift 20s ease-in-out infinite;
+      }
+      
+      .universe-bg::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle 2px at 15% 25%, rgba(255,255,255,0.6) 0%, transparent 100%),
+          radial-gradient(circle 1px at 85% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
+          radial-gradient(circle 2px at 45% 75%, rgba(255,255,255,0.5) 0%, transparent 100%),
+          radial-gradient(circle 1px at 65% 85%, rgba(255,255,255,0.3) 0%, transparent 100%),
+          radial-gradient(circle 1px at 25% 55%, rgba(255,255,255,0.4) 0%, transparent 100%);
+        animation: orbPulse 4s ease-in-out infinite, orbPulse 5s ease-in-out infinite 1s;
       }
       
       @keyframes starfield {

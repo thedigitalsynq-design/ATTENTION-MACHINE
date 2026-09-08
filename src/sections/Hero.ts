@@ -47,16 +47,18 @@ export class Hero {
     this.container.innerHTML = `
       <div class="hero-inner">
         <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-glow" aria-hidden="true"></div>
         <div class="hero-content">
           <div class="hero-headline">
             <h1 class="hero-line hero-line-1">
-              <span class="word">WE DON'T</span>
+              <span class="word" data-glitch="WE DON'T">WE DON'T</span>
             </h1>
             <h1 class="hero-line hero-line-2">
-              <span class="word">CHASE</span> <span class="word">ATTENTION.</span>
+              <span class="word">CHASE</span> <span class="word accent-word" data-glitch="ATTENTION.">ATTENTION.</span>
             </h1>
             <h1 class="hero-line hero-line-3">
-              <span class="word">WE</span> <span class="word">DESIGN</span> <span class="word">IT.</span>
+              <span class="word">WE</span> <span class="word">DESIGN</span> <span class="word accent-word" data-glitch="IT.">IT.</span>
             </h1>
           </div>
           <div class="hero-fragments" aria-hidden="true"></div>
@@ -113,6 +115,37 @@ export class Hero {
         animation: heroBgFade 1.5s var(--ease-out) 0.5s forwards;
       }
       
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255,59,48,0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,59,48,0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        opacity: 0;
+        animation: heroBgFade 2s var(--ease-out) 0.8s forwards, gridPulse 8s ease-in-out infinite 2s;
+        mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
+        -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
+      }
+      
+      @keyframes gridPulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 0.8; }
+      }
+      
+      .hero-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(255,59,48,0.12) 0%, transparent 70%);
+        opacity: 0;
+        animation: heroBgFade 3s var(--ease-out) 1s forwards, orbPulse 6s ease-in-out infinite 2s;
+        pointer-events: none;
+      }
+      
       @keyframes heroBgFade {
         to { opacity: 1; }
       }
@@ -163,6 +196,50 @@ export class Hero {
       .hero-line-2 .word:nth-child(2),
       .hero-line-3 .word:last-child {
         color: var(--color-accent);
+      }
+      
+      /* Glitch text effect */
+      .accent-word {
+        position: relative;
+      }
+      
+      .accent-word::before,
+      .accent-word::after {
+        content: attr(data-glitch);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+      }
+      
+      .accent-word::before {
+        color: #00ffff;
+        animation: glitchBefore 4s infinite;
+        clip-path: inset(0 0 65% 0);
+      }
+      
+      .accent-word::after {
+        color: #ff00ff;
+        animation: glitchAfter 4s infinite;
+        clip-path: inset(65% 0 0 0);
+      }
+      
+      @keyframes glitchBefore {
+        0%, 90%, 100% { opacity: 0; transform: translate(0); }
+        91% { opacity: 0.8; transform: translate(-3px, -1px); }
+        93% { opacity: 0; transform: translate(0); }
+        95% { opacity: 0.6; transform: translate(2px, 1px); }
+        97% { opacity: 0; transform: translate(0); }
+      }
+      
+      @keyframes glitchAfter {
+        0%, 92%, 100% { opacity: 0; transform: translate(0); }
+        93% { opacity: 0.7; transform: translate(3px, 1px); }
+        95% { opacity: 0; transform: translate(0); }
+        96% { opacity: 0.5; transform: translate(-2px, -1px); }
+        98% { opacity: 0; transform: translate(0); }
       }
       
       .hero-fragments {
