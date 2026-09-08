@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ATTENTION MACHINE - We don't chase attention. We design it. Experimental social media marketing agency.">
+  <meta name="theme-color" content="#0A0A0A">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ATTENTION MACHINE">
+  <meta property="og:description" content="We don't chase attention. We design it.">
+  <meta property="og:image" content="/assets/og-image.svg">
+  <meta property="og:url" content="https://attentionmachine.co">
+  
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ATTENTION MACHINE">
+  <meta name="twitter:description" content="We don't chase attention. We design it.">
+  <meta name="twitter:image" content="/assets/og-image.svg">
+  
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
+  
+  <title>ATTENTION MACHINE</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.svg">
+  
+  <!-- Critical CSS inlined -->
+  <style>
+    /* Critical above-fold styles */
+    :root {
+      --color-black: #0A0A0A;
+      --color-white: #FAFAFA;
+      --color-accent: #FF3B30;
+      --font-display: 'Space Grotesk', sans-serif;
+      --container-max: 1440px;
+      --container-padding: clamp(1.5rem, 3vw, 4rem);
+      --nav-height: 64px;
+    }
+    
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      color: var(--color-white); 
+      background: var(--color-black); 
+      overflow-x: hidden; 
+      cursor: none;
+    }
+    
+    @media (pointer: coarse) { body { cursor: auto; } }
+    
+    .opening-experience {
+      position: fixed; inset: 0; z-index: 500;
+      background: var(--color-black);
+      display: flex; align-items: center; justify-content: center;
+    }
+    
+    .navigation {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height);
+      z-index: 200;
+      background: linear-gradient(180deg, rgba(10,10,10,0.9) 0%, transparent 100%);
+      backdrop-filter: blur(20px);
+    }
+    
+    .section { min-height: 100vh; min-height: 100svh; }
+    
+    .cursor-dot, .cursor-ring {
+      position: fixed; top: 0; left: 0; pointer-events: none; z-index: 400;
+      mix-blend-mode: difference;
+      transition: transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .cursor-dot { width: 8px; height: 8px; background: var(--color-accent); border-radius: 50%; transform: translate(-50%, -50%); }
+    .cursor-ring { width: 40px; height: 40px; border: 1px solid var(--color-white); border-radius: 50%; transform: translate(-50%, -50%); opacity: 0.5; }
+    
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

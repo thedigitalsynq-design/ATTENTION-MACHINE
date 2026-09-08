@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0A0A0A"/>
+  <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="700" font-size="72" fill="#FAFAFA" letter-spacing="-2">ATTENTION</text>
+  <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="700" font-size="72" fill="#FF3B30" letter-spacing="-2">MACHINE</text>
+  <text x="50%" y="75%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="400" font-size="24" fill="#737373" letter-spacing="4">WE DON'T CHASE ATTENTION. WE DESIGN IT.</text>
+</svg>
