@@ -1,0 +1,44 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "cinepulse-bharat"
+main = "src/worker/index.ts"
+compatibility_date = "2026-10-21"
+compatibility_flags = ["nodejs_compat"]
+
+# Static Assets Delivery (Serving compiled React/Vite SPA on all frontend routes)
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+# Cloudflare D1 Relational SQLite Database Binding
+[[d1_databases]]
+binding = "DB"
+database_name = "cinema-prod"
+database_id = "d1-cinema-prod-master"
+migrations_dir = "database/migrations"
+
+# Automated Scheduled Cron Triggers
+# 1. "0 * * * *"    : Top of every hour (feed discovery, rating refresh)
+# 2. "30 18 * * *"  : 18:30 UTC = 00:00 IST (Daily Midnight Window Rollover & 30-day shift)
+[triggers]
+crons = ["0 * * * *", "30 18 * * *"]
+
+# Public Non-Secret Environment Variables
+[vars]
+APP_ENV = "production"
+PUBLIC_SITE_URL = "https://cinepulse.in"
+API_BASE_URL = "/api/v1"
+LOG_LEVEL = "info"
+DEFAULT_IST_DATE_ANCHOR = "2026-10-21"
+
+# Production Observability & Tail Logs
+[observability]
+enabled = true
+head_sampling_rate = 1.0
+
+# Staging Environment Override
+[env.staging]
+name = "cinepulse-bharat-staging"
+[env.staging.vars]
+APP_ENV = "staging"
+PUBLIC_SITE_URL = "https://staging.cinepulse.in"
